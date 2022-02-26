@@ -11,3 +11,13 @@ This Python project scrapes LEGO's official website to collect information about
 3. Extracts product details: name, age range, piece count, rating, price, and discount
 4. Saves collected data into CSV files (`themes.csv`, `toys_data.csv`)
 
+
+### Usage
+
+1. Install dependencies:
+
+```bash 
+pip install -r requirements.txt
+```
+
+2. Run script `python3 
