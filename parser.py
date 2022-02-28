@@ -49,3 +49,18 @@ def parse_toys(soup: BeautifulSoup, collection: str = 'Marvel') -> List[Dict[str
         })
 
     return result
+
+
+def parse_themes(url, soup: BeautifulSoup) -> List[Dict[str, str]]:
+    theme_items = soup.find('section').ul.find_all('li')
+
+    themes = [
+        {
+            'name': theme.h2.span.text.strip(),
+            'url': f"{url}{theme.a['href']}"
+        }
+        for theme in theme_items
+    ]
+    return themes
+
+
