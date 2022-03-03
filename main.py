@@ -29,3 +29,21 @@ def get_total_pages(soup: BeautifulSoup) -> Tuple[int, int]:
     total_items = int(soup.select_one('span[data-value]')['data-value'])
     pages = (total_items + 17) // 18
     return total_items, pages
+
+if __name__ == '__main__':
+    themes_soup = get_soup(THEMES_URL)
+    themes = parse_themes(BASE_URL, themes_soup)
+    save_csv(themes, 'themes.csv')
+
+    collection_name = 'marvel'
+    collection_url = f'{THEMES_URL}/{collection_name}'
+    soup = get_soup(collection_url)
+    _, pages = get_total_pages(soup)
+
+    all_toys = []
+    for page in range(1, pages + 1):
+        page_soup = get_soup(collection_url, page=page)
+        toys = parse_toys(page_soup, collection=collection_name.capitalize())
+        all_toys.extend(toys)
+
+    save_csv(all_toys, 'toys_data.csv')
